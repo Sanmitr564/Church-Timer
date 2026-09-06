@@ -1,0 +1,560 @@
+:root {
+    --background: #f3f4f6;
+    --panel: #ffffff;
+    --border: #d1d5db;
+    --border-light: #e5e7eb;
+    --text: #1f2937;
+    --muted: #6b7280;
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    --danger: #dc2626;
+    --success: #15803d;
+    --warning: #b45309;
+
+    --input-background: #ffffff;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    line-height: 1.5;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: white;
+    color: var(--text);
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+button:focus-visible,
+input:focus,
+select:focus {
+    outline: 3px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 1px;
+    border-color: var(--primary);
+}
+
+button.primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+button.primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+button.activate {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+button.activate:hover:not(:disabled) {
+    background: #dbeafe;
+    border-color: #60a5fa;
+}
+
+button.stop {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+    font-weight: 600;
+}
+
+button.stop:hover:not(:disabled) {
+    background: #fee2e2;
+    border-color: #f87171;
+}
+
+button.danger {
+    color: var(--danger);
+}
+
+button.danger:hover:not(:disabled) {
+    background: #fef2f2;
+    border-color: #fca5a5;
+}
+
+.container {
+    width: min(1200px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 2rem 0 4rem;
+}
+
+header {
+    margin-bottom: 1.5rem;
+}
+
+h1,
+h2,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 0.25rem;
+}
+
+h2 {
+    margin-bottom: 0.25rem;
+    font-size: 1.2rem;
+}
+
+.subtitle,
+.section-header p {
+    color: var(--muted);
+    margin-bottom: 0;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.form-row label {
+    font-weight: 600;
+}
+
+.form-row input {
+    width: 120px;
+}
+
+.form-row input[type="number"] {
+    width: 100px;
+}
+
+input,
+select {
+    width: 100%;
+    min-height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--input-background);
+    color: var(--text);
+    padding: 0.45rem 0.6rem;
+}
+
+.status {
+    margin-top: 0.8rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.status.connected {
+    color: var(--success);
+}
+
+.status.error {
+    color: var(--danger);
+}
+
+.status.pending {
+    color: var(--warning);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.item-selector {
+    max-width: 600px;
+}
+
+.item-selector label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+/* -------------------------------------------------------------------------
+   Timer table
+   ---------------------------------------------------------------------- */
+
+.timer-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.timer-header,
+.timer-row {
+    display: grid;
+
+    grid-template-columns:
+        45px
+        100px
+        minmax(170px, 1.2fr)
+        minmax(170px, 1.2fr)
+        140px
+        270px;
+
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.timer-header {
+    padding: 0.55rem 0.75rem;
+
+    border-bottom: 2px solid var(--border);
+
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.timer-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-entry {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.timer-entry:last-child {
+    border-bottom: none;
+}
+
+.timer-row {
+    padding: 0.65rem 0.75rem;
+    min-width: 850px;
+}
+
+.timer-entry:hover .timer-row {
+    background: #fafafa;
+}
+
+.timer-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #4b5563;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.field {
+    min-width: 0;
+}
+
+.mobile-label {
+    display: none;
+}
+
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.time-inputs input {
+    width: 60px;
+    text-align: center;
+}
+
+.time-inputs span {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.timer-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.timer-actions button {
+    white-space: nowrap;
+}
+
+/*
+ * The move buttons are deliberately compact so they don't compete
+ * visually with the Activate button.
+ */
+.move-up-button,
+.move-down-button {
+    width: 34px;
+    height: 34px;
+
+    padding: 0;
+
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.move-up-button:hover:not(:disabled),
+.move-down-button:hover:not(:disabled) {
+    color: var(--primary);
+    border-color: #93c5fd;
+    background: #eff6ff;
+}
+
+.merge-control {
+    display: flex;
+    justify-content: flex-start;
+
+    padding: 0 0 0.35rem 3.5rem;
+}
+
+.merge-button {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+
+    font-size: 0.78rem;
+
+    padding: 0.15rem 0.4rem;
+}
+
+.merge-button:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: transparent;
+    color: var(--primary);
+}
+
+.empty-state {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+
+    color: var(--muted);
+
+    margin-top: 0.75rem;
+    padding: 2rem;
+
+    text-align: center;
+}
+
+.timer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    white-space: nowrap;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+
+    flex: 0 0 auto;
+
+    border-radius: 50%;
+    background: #9ca3af;
+}
+
+.timer-status.pending {
+    color: #6b7280;
+}
+
+.status-dot.pending {
+    background: #9ca3af;
+}
+
+.timer-status.active {
+    color: #15803d;
+}
+
+.status-dot.active {
+    background: #22c55e;
+
+    /*
+     * Makes the currently active timer visually noticeable.
+     */
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.timer-status.completed {
+    color: #2563eb;
+}
+
+.status-dot.completed {
+    background: #3b82f6;
+}
+
+.timer-status.error {
+    color: #ff0000;
+}
+
+.status-dot.error {
+    background: #ff0000;
+
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.15)
+}
+
+/* -------------------------------------------------------------------------
+   Mobile
+   ---------------------------------------------------------------------- */
+
+@media (max-width: 800px) {
+    .timer-header {
+        display: none;
+    }
+
+    .timer-table {
+        overflow-x: visible;
+    }
+
+    .timer-row {
+        display: grid;
+
+        grid-template-columns:
+            35px
+            1fr
+            1fr;
+
+        min-width: 0;
+
+        gap: 0.6rem;
+        padding: 0.9rem 0.25rem;
+    }
+
+    .timer-number {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .mobile-label {
+        display: block;
+
+        margin-bottom: 0.25rem;
+
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .timer-row > .field:nth-child(2) {
+        grid-column: 2 / 4;
+    }
+
+    .timer-row > .field:nth-child(3) {
+        grid-column: 2;
+    }
+
+    .timer-row > .time-field {
+        grid-column: 3;
+    }
+
+    .timer-actions {
+        grid-column: 2 / 4;
+
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .merge-control {
+        padding-left: 2.5rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .container {
+        width: calc(100% - 1rem);
+        padding-top: 1rem;
+    }
+
+    .panel {
+        padding: 1rem;
+    }
+
+    .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .form-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-row input,
+    .form-row input[type="number"] {
+        width: 100%;
+    }
+
+    .timer-row {
+        grid-template-columns: 35px 1fr;
+    }
+
+    .timer-row > .field:nth-child(2),
+    .timer-row > .field:nth-child(3),
+    .timer-row > .time-field,
+    .timer-actions {
+        grid-column: 2;
+    }
+
+    .time-inputs input {
+        width: 70px;
+    }
+}

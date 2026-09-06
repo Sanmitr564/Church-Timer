@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local API Timer Manager</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Timer Manager</h1>
+            <p class="subtitle">
+                Configure a local API connection and prepare timers for manual activation.
+            </p>
+        </header>
+
+        <section class="panel" aria-labelledby="connection-heading">
+            <h2 id="connection-heading">API Connection</h2>
+
+            <div class="form-row">
+
+                <label for="api-port">Port</label>
+                <input
+                    type="number"
+                    id="api-port"
+                    min="1"
+                    max="65535"
+                    placeholder="8080"
+                >
+
+                <button id="connect-button" type="button">
+                    Connect
+                </button>
+            </div>
+
+            <div id="connection-status" class="status" role="status">
+                Not connected
+            </div>
+        </section>
+
+        <section class="panel" aria-labelledby="items-heading">
+            <div class="section-header">
+                <div>
+                    <h2 id="items-heading">Items</h2>
+                    <p>Select an item returned by the API.</p>
+                </div>
+
+                <button id="refresh-items-button" type="button" disabled>
+                    Refresh
+                </button>
+            </div>
+
+            <div class="item-selector">
+                <label for="item-select">Item</label>
+                <select id="item-select" disabled>
+                    <option value="">Connect to load items</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="panel timer-panel" aria-labelledby="timers-heading">
+            <div class="section-header">
+                <div>
+                    <h2 id="timers-heading">Timers</h2>
+                    <p>
+                        Prepare timers here. They can be activated manually when needed.
+                    </p>
+                </div>
+
+                <button id="add-timer-button" type="button" class="primary">
+                    + Add Timer
+                </button>
+            </div>
+
+            <div class="timer-table">
+                <div class="timer-header" aria-hidden="true">
+                    <div>#</div>
+                    <div>Status</div>
+                    <div>Section</div>
+                    <div>Person</div>
+                    <div>Time</div>
+                    <div>Actions</div>
+                </div>
+
+                <div id="timer-list" class="timer-list">
+                    <div id="empty-timers" class="empty-state">
+                        No timers have been added.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <template id="timer-template">
+        <div class="timer-entry">
+            <div class="timer-row">
+                <div class="timer-number" aria-hidden="true"></div>
+                
+                <div class="timer-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text"></span>
+                </div>
+                
+                <div class="field">
+                    <label class="mobile-label">Section</label>
+                    <input
+                        type="text"
+                        class="section-name"
+                        placeholder="Section name"
+                    >
+                </div>
+
+                <div class="field">
+                    <label class="mobile-label">Person</label>
+                    <input
+                        type="text"
+                        class="person-name"
+                        placeholder="Person name"
+                    >
+                </div>
+
+                <div class="field time-field">
+                    <label class="mobile-label">Time</label>
+
+                    <div class="time-inputs">
+                        <input
+                            type="number"
+                            class="minutes"
+                            min="0"
+                            max="999"
+                            value="0"
+                            aria-label="Minutes"
+                        >
+
+                        <span>:</span>
+
+                        <input
+                            type="number"
+                            class="seconds"
+                            min="0"
+                            max="59"
+                            value="0"
+                            aria-label="Seconds"
+                        >
+                    </div>
+                </div>
+
+                <div class="timer-actions">
+                    <button
+                        type="button"
+                        class="move-up-button"
+                        title="Move timer up"
+                        aria-label="Move timer up"
+                    >
+                        ↑
+                    </button>
+
+                    <button
+                        type="button"
+                        class="move-down-button"
+                        title="Move timer down"
+                        aria-label="Move timer down"
+                    >
+                        ↓
+                    </button>
+
+                    <button
+                        type="button"
+                        class="activate-button activate"
+                    >
+                        Activate
+                    </button>
+                    
+                    <button
+                        type="button"
+                        class="stop-button stop"
+                    >
+                        Stop
+                    </button>
+
+                    <button
+                        type="button"
+                        class="remove-button danger"
+                    >
+                        Remove
+                    </button>
+                </div>
+            </div>
+
+            <div class="merge-control">
+                <button
+                    type="button"
+                    class="merge-button"
+                    title="Merge this timer with the next timer"
+                >
+                    Merge with next ↓
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="{{url_for('static', filename='app.js')}}"></script>
+</body>
+</html>
