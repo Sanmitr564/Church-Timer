@@ -9,7 +9,7 @@ class PropresenterApi:
             self._port = None
 
         try:
-            self.timer = port
+            self.timer = timer
         except Exception:
             self._timer = None
 
