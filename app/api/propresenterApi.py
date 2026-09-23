@@ -13,6 +13,10 @@ class PropresenterApi:
         except Exception:
             self._timer = None
 
+        self.json_header = {
+            "Content-Type": "application/json"
+        }
+        
         self.timeout = timeout
         
     #TODO: May need to modify json
@@ -27,7 +31,7 @@ class PropresenterApi:
             }
         }
         try:
-            response = requests.put(f"{self.url}/v1/timer/{self._timer}/start", json=payload)
+            response = requests.put(f"{self.url}/v1/timer/{self._timer}/start", json=payload, header=self.json_header)
             response.raise_for_status()
             return
         except requests.exceptions.HTTPError as e:
@@ -116,4 +120,4 @@ class PropresenterApi:
     def url(self):
         if self._port is None:
             raise PropresenterNotFound("Please enter a valid port")
-        return f"http://localhost:{self._port}/"
+        return f"http://localhost:{self._port}"
