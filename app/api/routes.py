@@ -5,12 +5,10 @@ from .exceptions import *
 
 api_bp = Blueprint("api", __name__)
 
-def propresenterUrl():
-    return f"http://localhost:{current_app.extensions["propresenter_port"]}/"
-
 @api_bp.put('/timers/start')
 def login_post():
     data = request.get_json()
+
     section = data.get("section")
     person = data.get("person")
     minutes = data.get("minutes")
@@ -21,9 +19,13 @@ def login_post():
     try:
         minutes_int = int(minutes)
         seconds_int = int(seconds)
-    except ValueError:
+    except (ValueError, TypeError):
         raise InvalidTimerSet("Minutes and seconds must be integers")
 
+    if minutes_int < 0 or seconds < 0:
+        raise InvalidTimerSet("Minutes and Seconds cannot be negative")
+
+    stopTimekeeper()
     current_app.extensions["propresenterApi"].set_and_start_timer(minutes_int, seconds_int)
     current_app.extensions["timekeeper"].start(section, person, minutes_int * 60 + seconds_int)
 
@@ -32,13 +34,17 @@ def login_post():
 @api_bp.put('/timers/stop')
 def handleTimerStop():
     current_app.extensions["propresenterApi"].stop_timer()
+    stopTimekeeper()
+    return "success"
+
+def stopTimekeeper():
     data = current_app.extensions["timekeeper"].stop()
     if data is None:
         return "success"
-    write_results(data)
+    writeResults(data)
     return "success"
 
-def write_results(data):
+def writeResults(data):
     with open("timekeeping.csv", "a") as file:
         writer = csv.writer(file)
         writer.writerow(data)
