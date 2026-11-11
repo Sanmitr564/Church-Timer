@@ -757,13 +757,16 @@ async function onFetchItems() {
 /**
  * Called when the user selects an item.
  */
-function onItemSelected(item) {
+async function onItemSelected(item) {
     // TODO: Implement optional API behavior for item selection.
-    const uuid = item.id
+    if (item == null) {
+        return;
+    }
+    const uuid = item.id;
 
-    const response = fetch(`/api/timers/select/${uuid}`, {
+    const response = await fetch(`/api/timers/select/${uuid}`, {
         method: "Put"
-    })
+    });
 }
 
 
