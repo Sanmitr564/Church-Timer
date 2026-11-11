@@ -31,7 +31,7 @@ class PropresenterApi:
             }
         }
         try:
-            response = requests.put(f"{self.url}/v1/timer/{self._timer}/start", json=payload, header=self.json_header)
+            response = requests.put(f"{self.url}/v1/timer/{self._timer}/start", json=payload, headers=self.json_header)
             response.raise_for_status()
             return
         except requests.exceptions.HTTPError as e:
